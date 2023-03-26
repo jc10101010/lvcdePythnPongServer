@@ -15,7 +15,7 @@ from pygame.locals import (
 
 #Client configuration
 sendOut = b""
-host, port = #
+host, port = "192.168.0.21", 8000
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
 s.sendall(b"REQUEST JOIN")
@@ -32,7 +32,7 @@ while True:
         rsp2 = s.recv(1024)
     else:
         sys.exit("CLIENT: Client detects an invalid response from the server, developer please fix.")
-s.settimeout(1/60)
+s.settimeout(1/30)
 
 #Pygame configuration
 pygame.init()
@@ -86,7 +86,7 @@ while running:
         paddleMainPos[1] = (HEIGHT / 2) - paddleHeight/2
     
     #SEND NEW INFO
-    sendOut += "SET {0},{1}\n".format( paddleMainPos[0], paddleMainPos[1]).encode()
+    sendOut += "SET POS {0},{1}\n".format( paddleMainPos[0], paddleMainPos[1]).encode()
     sendOut += "REQUEST POS\n".encode()
     sendOut += "REQUEST BPOS \n".encode()
     #print("CLIENT: Client has sent information to server: \n", sendOut.decode().split("\n"))
