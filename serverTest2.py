@@ -189,7 +189,7 @@ gm = GameManager()
 
 #Network setup
 sel = selectors.DefaultSelector()
-host, port = "192.168.0.21", 8000
+host, port = #
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.listen()
