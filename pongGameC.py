@@ -15,7 +15,7 @@ from pygame.locals import (
 
 #Client configuration
 sendOut = b""
-host, port =
+host, port = "192.168.0.21", 8000
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
 s.sendall(b"REQUEST JOIN")
@@ -43,7 +43,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 running = True
 
 def set_position(a, b, w, h, sw, sh):
-    a.x = b[0] - (w/2) 
+    a.x = b[0] - (w/2) + sw/2
     a.y = b[1] - (h/2) + sh/2
 
 #Standard values
@@ -55,8 +55,8 @@ ballRadius = 15
 
 
 #Game configuration
-paddleMainPos = [paddleInitialDistWall,0]
-paddleSecondaryPos = [WIDTH - paddleInitialDistWall,0]
+paddleMainPos = [-WIDTH/2 + paddleInitialDistWall,0]
+paddleSecondaryPos = [WIDTH/2 - paddleInitialDistWall,0]
 ballPos = [0,0]
 paddleMain = pygame.Rect(paddleMainPos, (paddleWidth, paddleHeight))
 paddleSecondary = pygame.Rect(paddleSecondaryPos, (paddleWidth, paddleHeight))
@@ -100,7 +100,7 @@ while running:
                 print('CLIENT: Server has disconnected.')
                 sys.exit(0)
             else:
-                #print("CLIENT: Client received message from server: \n", msg.decode().split())
+                print("CLIENT: Client received message from server: \n", msg.decode().split())
                 #If a valid response is received:
                 lines = msg.decode().split("\n")
                 for line in lines:
